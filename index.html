@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Composing and Decomposing Human Videos</title>
+<title>Who, How, and Where: Composing and Decomposing Human Videos with a Single Diffusion Transformer</title>
 <style>
 :root {
   --bg: #fbfbf9; --bg2: #f2f2ee; --card: #ffffff; --ink: #1b1d22; --ink2: #50545e; --ink3: #858a95;
@@ -210,7 +210,7 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
 
 <header class="hero" id="top"><div class="wrap">
   <span class="venue">CVPR 2027 Submission &middot; Supplementary Project Page</span>
-  <h1>Composing and Decomposing Human Videos with a Single Joint Diffusion Model</h1>
+  <h1>Who, How, and Where: Composing and Decomposing Human Videos with a Single Diffusion Transformer</h1>
   <p class="subtitle">One diffusion transformer learns the joint distribution of a human video and its factors
     &mdash; <b class="mod mV">V</b>ideo, <b class="mod mS">S</b>cene, 3D <b class="mod mM">M</b>otion and
     <b class="mod mI">I</b>dentity &mdash; so generation, controllable generation and decomposition
@@ -226,19 +226,19 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
 
 <section id="comp" style="padding-top:20px"><div class="wrap">
   <div class="kicker"><span class="mS">S</span> <span class="mM">M</span> <span class="mI">I</span> &rarr; <span class="mV">V</span></div>
-  <h2>Controllable composition</h2>
+  <h2>Video Composition</h2>
   <div class="card viewer" id="v-comp"></div>
 </div></section>
 
 <section id="decomp"><div class="wrap">
   <div class="kicker"><span class="mV">V</span> &rarr; <span class="mS">S</span> <span class="mM">M</span> <span class="mI">I</span></div>
-  <h2>Video decomposition</h2>
+  <h2>Video Decomposition</h2>
   <div class="card viewer" id="v-decomp"></div>
 </div></section>
 
 <section id="t2a"><div class="wrap">
   <div class="kicker">Text &rarr; <span class="mV">V</span> <span class="mS">S</span> <span class="mM">M</span> <span class="mI">I</span></div>
-  <h2>Text-to-all generation</h2>
+  <h2>Text-to-All Generation</h2>
   <div class="card viewer" id="v-t2a"></div>
 </div></section>
 
@@ -265,37 +265,37 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
 
 <section id="swap"><div class="wrap">
   <div class="kicker"><span class="mS">S</span> + <span class="mM">M</span> from one video, <span class="mI">I</span> from another &rarr; <span class="mV">V</span></div>
-  <h2>Identity swap</h2>
+  <h2>Identity Swap</h2>
   <div class="card viewer" id="v-swap"></div>
 </div></section>
 
 <section id="mswap"><div class="wrap">
   <div class="kicker"><span class="mS">S</span> + <span class="mI">I</span> from one video, <span class="mM">M</span> from another &rarr; <span class="mV">V</span></div>
-  <h2>Motion swap</h2>
+  <h2>Motion Swap</h2>
   <div class="card viewer" id="v-mswap"></div>
 </div></section>
 
 <section id="sswap"><div class="wrap">
   <div class="kicker"><span class="mS">S</span> from one video, <span class="mM">M</span> + <span class="mI">I</span> from another &rarr; <span class="mV">V</span></div>
-  <h2>Scene swap</h2>
+  <h2>Scene Swap</h2>
   <div class="card viewer" id="v-sswap"></div>
 </div></section>
 
 <section id="mix"><div class="wrap">
   <div class="kicker"><span class="mS">S</span>, <span class="mM">M</span>, <span class="mI">I</span> from three different videos &rarr; <span class="mV">V</span></div>
-  <h2>Mix and match</h2>
+  <h2>Mix and Match</h2>
   <div class="card viewer" id="v-mix"></div>
 </div></section>
 
 <section id="t2v"><div class="wrap">
   <div class="kicker">Text &rarr; <span class="mV">V</span></div>
-  <h2>Text-to-video</h2>
+  <h2>Text-to-Video Generation</h2>
   <div class="card viewer" id="v-t2v"></div>
 </div></section>
 
 <section id="t2m"><div class="wrap">
   <div class="kicker">Text &rarr; <span class="mM">M</span></div>
-  <h2>Text-to-motion</h2>
+  <h2>Text-to-Motion Generation</h2>
   <div class="card viewer" id="v-t2m"></div>
 </div></section>
 
