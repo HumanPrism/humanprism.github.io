@@ -196,6 +196,7 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
 
 <nav class="top"><div class="wrap">
   <span style="margin-right:auto"></span>
+  <a href="#method">Method</a>
   <a href="#comp">Composition</a>
   <a href="#decomp">Decomposition</a>
   <a href="#t2a">Text&rarr;All</a>
@@ -223,6 +224,145 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
     <span class="chip"><span class="dot" style="background:var(--I)"></span>Multi-view identity</span>
   </div>
 </div></header>
+
+<section id="teaser" style="padding-top:8px"><div class="wrap"><img src="media/teaser.jpg" alt="Teaser figure" style="display:block;width:100%;height:auto;border-radius:12px"></div></section>
+
+<section id="method"><div class="wrap">
+  <h2>Method</h2>
+  <p class="lead">Video, scene and identity views are encoded by the frozen video VAE; motion by a frozen pretrained motion encoder with two linear adapters. All tokens are concatenated into one sequence and processed with full self-attention by a pretrained video DiT; text enters through the backbone's unchanged cross-attention.</p>
+  <div class="card diagram">
+<svg viewBox="0 0 1000 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture overview">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink3)"/>
+    </marker>
+    <pattern id="noise" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="var(--card)"/><circle cx="1.5" cy="1.5" r="1" fill="var(--ink3)"/><circle cx="4.5" cy="4.5" r="1" fill="var(--ink3)"/>
+    </pattern>
+  </defs>
+  <style>
+    .lbl { font-size: 14px; font-weight: 700; fill: var(--ink); }
+    .sub { font-size: 11.5px; fill: var(--ink3); }
+    .box { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+    .enc { fill: var(--bg2); stroke: var(--line); stroke-width: 1.2; }
+    .etx { font-size: 12px; fill: var(--ink2); font-weight: 600; }
+    .ln { stroke: var(--ink3); stroke-width: 1.4; fill: none; }
+    .dit { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.6; }
+    .layer { fill: var(--card); stroke: var(--line); stroke-width: 1.2; }
+    .ltx { font-size: 12.5px; fill: var(--ink); font-weight: 600; }
+    .lsub { font-size: 11px; fill: var(--ink3); }
+  </style>
+
+  <!-- rows: y centres 70, 140, 210, 280 -->
+  <g>
+    <!-- Video: target (noised) in this example split -->
+    <text class="lbl" x="20" y="66" style="fill:var(--V)">Video V</text>
+    <text class="sub" x="20" y="83">generated &middot; &sigma;<tspan font-size="9" dy="3">V</tspan><tspan dy="-3"> = &sigma;</tspan></text>
+    <text class="lbl" x="20" y="136" style="fill:var(--S)">Scene S</text>
+    <text class="sub" x="20" y="153">given &middot; &sigma;<tspan font-size="9" dy="3">S</tspan><tspan dy="-3"> = 0</tspan></text>
+    <text class="lbl" x="20" y="206" style="fill:var(--M)">Motion M</text>
+    <text class="sub" x="20" y="223">given &middot; &sigma;<tspan font-size="9" dy="3">M</tspan><tspan dy="-3"> = 0</tspan></text>
+    <text class="lbl" x="20" y="276" style="fill:var(--I)">Identity I</text>
+    <text class="sub" x="20" y="293">given &middot; &sigma;<tspan font-size="9" dy="3">I</tspan><tspan dy="-3"> = 0</tspan></text>
+  </g>
+
+  <!-- encoders -->
+  <g>
+    <rect class="enc" x="150" y="52" width="108" height="36" rx="8"/><text class="etx" x="204" y="75" text-anchor="middle">Video VAE</text>
+    <rect class="enc" x="150" y="122" width="108" height="36" rx="8"/><text class="etx" x="204" y="145" text-anchor="middle">Video VAE</text>
+    <rect class="enc" x="150" y="192" width="108" height="36" rx="8"/><text class="etx" x="204" y="215" text-anchor="middle">Motion encoder</text>
+    <rect class="enc" x="150" y="262" width="108" height="36" rx="8"/><text class="etx" x="204" y="285" text-anchor="middle">VAE &times; 4 views</text>
+    <text class="sub" x="204" y="322" text-anchor="middle">frozen encoders</text>
+  </g>
+
+  <!-- token rows -->
+  <g>
+    <g transform="translate(280,58)">
+      <rect width="22" height="24" rx="4" fill="url(#noise)" stroke="var(--V)" stroke-width="1.6"/>
+      <rect x="27" width="22" height="24" rx="4" fill="url(#noise)" stroke="var(--V)" stroke-width="1.6"/>
+      <rect x="54" width="22" height="24" rx="4" fill="url(#noise)" stroke="var(--V)" stroke-width="1.6"/>
+      <rect x="81" width="22" height="24" rx="4" fill="url(#noise)" stroke="var(--V)" stroke-width="1.6"/>
+      <rect x="108" width="22" height="24" rx="4" fill="url(#noise)" stroke="var(--V)" stroke-width="1.6"/>
+    </g>
+    <g transform="translate(280,128)" fill="var(--S)" opacity=".85">
+      <rect width="22" height="24" rx="4"/><rect x="27" width="22" height="24" rx="4"/><rect x="54" width="22" height="24" rx="4"/><rect x="81" width="22" height="24" rx="4"/><rect x="108" width="22" height="24" rx="4"/>
+    </g>
+    <g transform="translate(280,198)" fill="var(--M)" opacity=".85">
+      <rect width="22" height="24" rx="4"/><rect x="27" width="22" height="24" rx="4"/><rect x="54" width="22" height="24" rx="4"/><rect x="81" width="22" height="24" rx="4"/><rect x="108" width="22" height="24" rx="4"/>
+    </g>
+    <g transform="translate(280,268)" fill="var(--I)" opacity=".85">
+      <rect width="22" height="24" rx="4"/><rect x="27" width="22" height="24" rx="4"/><rect x="54" width="22" height="24" rx="4"/><rect x="81" width="22" height="24" rx="4"/>
+    </g>
+    <path class="ln" d="M258,70 H274" marker-end="url(#ar)"/>
+    <path class="ln" d="M258,140 H274" marker-end="url(#ar)"/>
+    <path class="ln" d="M258,210 H274" marker-end="url(#ar)"/>
+    <path class="ln" d="M258,280 H274" marker-end="url(#ar)"/>
+    <text class="sub" x="349" y="340" text-anchor="middle">tokens, concatenated into one sequence</text>
+    <path class="ln" d="M418,70 C450,70 450,175 480,175" />
+    <path class="ln" d="M418,140 C445,140 450,175 480,175" />
+    <path class="ln" d="M418,210 C445,210 450,175 480,175" />
+    <path class="ln" d="M418,280 C450,280 450,175 480,175" marker-end="url(#ar)"/>
+  </g>
+
+  <!-- DiT -->
+  <g>
+    <rect class="dit" x="486" y="40" width="270" height="270" rx="16"/>
+    <text class="lbl" x="621" y="66" text-anchor="middle">Pretrained video DiT</text>
+    <text class="lsub" x="621" y="83" text-anchor="middle">&times; N blocks, all weights shared by all modalities</text>
+    <rect class="layer" x="506" y="98" width="230" height="52" rx="10"/>
+    <text class="ltx" x="621" y="119" text-anchor="middle">Full self-attention + group-RoPE</text>
+    <text class="lsub" x="621" y="137" text-anchor="middle">every token attends to every modality</text>
+    <rect class="layer" x="506" y="162" width="230" height="52" rx="10"/>
+    <text class="ltx" x="621" y="183" text-anchor="middle">Cross-attention to text</text>
+    <text class="lsub" x="621" y="201" text-anchor="middle">umT5 caption (unchanged)</text>
+    <rect class="layer" x="506" y="226" width="230" height="52" rx="10"/>
+    <text class="ltx" x="621" y="247" text-anchor="middle">AdaLN, one timestep per token</text>
+    <text class="lsub" x="621" y="265" text-anchor="middle">token of modality m uses &sigma;&#8344;</text>
+    <text class="lbl" x="621" y="350" text-anchor="middle" style="fill:var(--T)">Text T</text>
+    <path class="ln" d="M621,334 V316" marker-end="url(#ar)"/>
+  </g>
+
+  <!-- heads / outputs -->
+  <g>
+    <path class="ln" d="M756,175 C785,175 785,70 812,70" marker-end="url(#ar)"/>
+    <path class="ln" d="M756,175 C785,175 785,140 812,140" />
+    <path class="ln" d="M756,175 C785,175 785,210 812,210" />
+    <path class="ln" d="M756,175 C785,175 785,280 812,280" />
+    <rect class="box" x="816" y="52" width="166" height="36" rx="8" style="stroke:var(--ours);stroke-width:2"/>
+    <text class="etx" x="899" y="75" text-anchor="middle" style="fill:var(--ours)">video head &rarr; V&#770;  (loss)</text>
+    <rect class="box" x="816" y="122" width="166" height="36" rx="8" opacity=".5"/>
+    <text class="etx" x="899" y="145" text-anchor="middle" opacity=".6">scene head (no loss)</text>
+    <rect class="box" x="816" y="192" width="166" height="36" rx="8" opacity=".5"/>
+    <text class="etx" x="899" y="215" text-anchor="middle" opacity=".6">motion dec. (no loss)</text>
+    <rect class="box" x="816" y="262" width="166" height="36" rx="8" opacity=".5"/>
+    <text class="etx" x="899" y="285" text-anchor="middle" opacity=".6">identity head (no loss)</text>
+    <text class="sub" x="899" y="322" text-anchor="middle">loss on generated modalities only</text>
+  </g>
+
+  <!-- group-RoPE strip -->
+  <g transform="translate(20,372)">
+    <text class="ltx" x="0" y="12">Group-RoPE</text>
+    <text class="lsub" x="0" y="30">lowest-frequency temporal pair &#966;&#8902; = g&#8344;&middot;&#960;/2</text>
+    <g transform="translate(250,0)">
+      <rect x="0" y="0" width="150" height="34" rx="8" fill="var(--V)" opacity=".16"/><text class="ltx" x="75" y="15" text-anchor="middle" style="fill:var(--V)">V : g = 0</text><text class="lsub" x="75" y="29" text-anchor="middle">(t, h, w)</text>
+      <rect x="160" y="0" width="150" height="34" rx="8" fill="var(--S)" opacity=".16"/><text class="ltx" x="235" y="15" text-anchor="middle" style="fill:var(--S)">S : g = 1</text><text class="lsub" x="235" y="29" text-anchor="middle">same (t, h, w) as V</text>
+      <rect x="320" y="0" width="150" height="34" rx="8" fill="var(--M)" opacity=".16"/><text class="ltx" x="395" y="15" text-anchor="middle" style="fill:var(--M)">M : g = 2</text><text class="lsub" x="395" y="29" text-anchor="middle">(j/4, field k, 0)</text>
+      <rect x="480" y="0" width="150" height="34" rx="8" fill="var(--I)" opacity=".16"/><text class="ltx" x="555" y="15" text-anchor="middle" style="fill:var(--I)">I : g = 3</text><text class="lsub" x="555" y="29" text-anchor="middle">(view v, h, w)</text>
+    </g>
+  </g>
+</svg>
+
+    <div style="font-size:12.5px;color:var(--ink3);margin-top:6px;text-align:center">Example split shown: <b class="mod mS">S</b> <b class="mod mM">M</b> <b class="mod mI">I</b> &rarr; <b class="mod mV">V</b> (video composition). Any of the 15 splits uses the same network.</div>
+  </div>
+  <div class="ideas">
+    <div class="card idea"><div class="n">01 &middot; ARCHITECTURE</div><h3>Unified Multi-Modal Sequence</h3>
+      <p>No dual branches, fusion modules or experts. The only new parameters are the scene and identity output heads (initialized from the video head) and two linear motion adapters.</p></div>
+    <div class="card idea"><div class="n">02 &middot; POSITIONS</div><h3>Modality-Aware Rotary Positional Embedding</h3>
+      <p>The lowest-frequency temporal RoPE pair, constant over any clip, is overwritten with a modality index. Within-modality attention &mdash; including pure text-to-video &mdash; is mathematically unchanged, while scene and video tokens share exact pixel positions but stay distinguishable. Motion frames sit at fractional positions <i>j</i>/4 to stay in sync with the 4&times; compressed video latents.</p></div>
+    <div class="card idea"><div class="n">03 &middot; ROLES</div><h3>Per-Modality Timesteps</h3>
+      <p>Conditions enter clean (&sigma;&nbsp;=&nbsp;0); targets are noised at independent levels and are the only ones supervised. Adaptive LayerNorm is generalized from one timestep per sample to one per token, so a single network serves all 15 splits.</p></div>
+  </div>
+</div></section>
 
 <section id="comp" style="padding-top:20px"><div class="wrap">
   <div class="kicker"><span class="mS">S</span> <span class="mM">M</span> <span class="mI">I</span> &rarr; <span class="mV">V</span></div>
