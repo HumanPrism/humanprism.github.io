@@ -571,7 +571,7 @@ const t2aRow = (x) => Object.assign({}, x, { identity: null,
     { label: "Identity (front)", img: true })] }] });
 Viewer(document.getElementById("v-t2a"), ["5B"].map(sc => ({ name: `${sc} model`, items: DATA.t2a.filter(x => x.scale === sc).map(t2aRow) })),
   { square: true, captionTop: true });
-const decompRows = (x) => Object.assign({}, x, { identity: null,
+const decompRows = (x) => Object.assign({}, x, { identity: null, dataset: "",
   panels: [...x.panels, { title: "Identity", col: 1, cols: x.identity.length, tiles: x.identity.map(g => Object.assign({},
     g.images.find(im => im.label === "Front"), { label: g.name.replace(" (dataset)", ""), img: true, ours: !!g.ours })) }] });
 Viewer(document.getElementById("v-decomp"), [{ name: "", items: DATA.decomp.map(decompRows) }], { square: true, tall: true });
