@@ -289,22 +289,10 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
   <h2 style="margin-bottom:0">Factor Completion</h2>
 </div></section>
 
-<section id="c_I_to_VSM"><div class="wrap">
-  <div class="kicker"><span class="mI">I</span> &rarr; <span class="mV">V</span> <span class="mS">S</span> <span class="mM">M</span></div>
-  <h3 class="subsec">Subject-Driven Generation</h3>
-  <div class="card viewer" id="v-c_I_to_VSM"></div>
-</div></section>
-
-<section id="c_S_to_VMI"><div class="wrap">
-  <div class="kicker"><span class="mS">S</span> &rarr; <span class="mV">V</span> <span class="mM">M</span> <span class="mI">I</span></div>
-  <h3 class="subsec">Inserting a Person into a Scene</h3>
-  <div class="card viewer" id="v-c_S_to_VMI"></div>
-</div></section>
-
-<section id="c_M_to_VSI"><div class="wrap">
-  <div class="kicker"><span class="mM">M</span> &rarr; <span class="mV">V</span> <span class="mS">S</span> <span class="mI">I</span></div>
-  <h3 class="subsec">Motion to Video, Scene, and Identity</h3>
-  <div class="card viewer" id="v-c_M_to_VSI"></div>
+<section id="c_single"><div class="wrap">
+  <div class="kicker">One of <span class="mI">I</span>, <span class="mS">S</span>, <span class="mM">M</span> &rarr; the rest</div>
+  <h3 class="subsec">Single-Factor Completion</h3>
+  <div class="card viewer" id="v-c_single"></div>
 </div></section>
 
 <section id="c_SM_to_VI"><div class="wrap">
@@ -655,7 +643,10 @@ const t2vRow = (x) => Object.assign({}, x, { panels: [{ title: "", cols: x.tiles
 Viewer(document.getElementById("v-t2v"), ["5B"].map(sc => ({ name: `${sc} models`,
   items: DATA.t2v.filter(x => x.scale === sc).map(t2vRow) })), { square: true });
 Viewer(document.getElementById("v-t2m"), [{ name: "", items: (DATA.t2m || []).map(t2vRow) }], { square: true });
-for (const s of ["I_to_VSM", "S_to_VMI", "M_to_VSI", "SM_to_VI", "SI_to_VM", "MI_to_VS"])
+Viewer(document.getElementById("v-c_single"), [{ name: "", items: ["I_to_VSM", "S_to_VMI", "M_to_VSI"].flatMap(s =>
+  (DATA.completion || []).filter(x => x.split === s).map(x => Object.assign({}, x, { id: s[0] + "-" + x.id }))) }],
+  { square: true, captionTop: true });
+for (const s of ["SM_to_VI", "SI_to_VM", "MI_to_VS"])
   Viewer(document.getElementById("v-c_" + s), [{ name: "", items: (DATA.completion || []).filter(x => x.split === s) }],
     { square: true, captionTop: true });
 </script>
