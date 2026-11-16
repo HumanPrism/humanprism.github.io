@@ -295,22 +295,10 @@ footer { padding: 56px 0 64px; color: var(--ink3); font-size: 13.5px; text-align
   <div class="card viewer" id="v-c_single"></div>
 </div></section>
 
-<section id="c_SM_to_VI"><div class="wrap">
-  <div class="kicker"><span class="mS">S</span> <span class="mM">M</span> &rarr; <span class="mV">V</span> <span class="mI">I</span></div>
-  <h3 class="subsec">Scene and Motion to Video and Identity</h3>
-  <div class="card viewer" id="v-c_SM_to_VI"></div>
-</div></section>
-
-<section id="c_SI_to_VM"><div class="wrap">
-  <div class="kicker"><span class="mS">S</span> <span class="mI">I</span> &rarr; <span class="mV">V</span> <span class="mM">M</span></div>
-  <h3 class="subsec">Scene and Identity to Video and Motion</h3>
-  <div class="card viewer" id="v-c_SI_to_VM"></div>
-</div></section>
-
-<section id="c_MI_to_VS"><div class="wrap">
-  <div class="kicker"><span class="mM">M</span> <span class="mI">I</span> &rarr; <span class="mV">V</span> <span class="mS">S</span></div>
-  <h3 class="subsec">Motion and Identity to Video and Scene</h3>
-  <div class="card viewer" id="v-c_MI_to_VS"></div>
+<section id="c_two"><div class="wrap">
+  <div class="kicker">Two of <span class="mS">S</span>, <span class="mM">M</span>, <span class="mI">I</span> &rarr; the rest</div>
+  <h3 class="subsec">Two-Factor Completion</h3>
+  <div class="card viewer" id="v-c_two"></div>
 </div></section>
 
 <section id="factor" style="padding-bottom:0"><div class="wrap">
@@ -646,9 +634,9 @@ Viewer(document.getElementById("v-t2m"), [{ name: "", items: (DATA.t2m || []).ma
 Viewer(document.getElementById("v-c_single"), [{ name: "", items: ["I_to_VSM", "S_to_VMI", "M_to_VSI"].flatMap(s =>
   (DATA.completion || []).filter(x => x.split === s).map(x => Object.assign({}, x, { id: s[0] + "-" + x.id }))) }],
   { square: true, captionTop: true });
-for (const s of ["SM_to_VI", "SI_to_VM", "MI_to_VS"])
-  Viewer(document.getElementById("v-c_" + s), [{ name: "", items: (DATA.completion || []).filter(x => x.split === s) }],
-    { square: true, captionTop: true });
+Viewer(document.getElementById("v-c_two"), [{ name: "", items: ["SM_to_VI", "SI_to_VM", "MI_to_VS"].flatMap(s =>
+  (DATA.completion || []).filter(x => x.split === s).map(x => Object.assign({}, x, { id: s.split("_")[0] + "-" + x.id }))) }],
+  { square: true, captionTop: true });
 </script>
 </body>
 </html>
