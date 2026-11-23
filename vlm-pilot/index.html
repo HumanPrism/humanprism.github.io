@@ -141,7 +141,7 @@ function clipPage(k){
   <figure><video src="media/${k}/motion.mp4" muted loop autoplay playsinline class="sync"></video><figcaption>Given motion (mesh render)</figcaption></figure>
   <figure><img class="ident" src="media/${k}/identity.jpg" alt="Given identity: front, back and side views"><figcaption>Given identity (front · back · side)</figcaption></figure></div>
   <details><summary>Frames the judge saw for scene and motion</summary>${strip(k,"scene")}${strip(k,"motion")}</details>
-  <p class="mut">Wrong-input rows below use the identity / scene / motion of clip <a href="#clip-${c.neg_clip}">${c.neg_clip}</a>.</p></div>`;
+  <p class="mut">Wrong-input rows below use the identity / scene / motion of clip ${D.clips.some(x=>x.key===c.neg_clip)?`<a href="#clip-${c.neg_clip}">${c.neg_clip}</a>`:`${c.neg_clip} (not shown on this page)`}.</p></div>`;
   for(const m of D.methods){
     h+=`<div class="card"><h3>${esc(m)}${m==="GT"?' <span class="mut">(real video)</span>':""}</h3><div class="row"><div><video src="media/${k}/${m}.mp4" muted loop autoplay playsinline class="sync"></video>${strip(k,m)}</div><div>`;
     for(const [call,cs] of Object.entries(D.calls))for(const cr of cs){
